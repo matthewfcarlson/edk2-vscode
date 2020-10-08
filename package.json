@@ -1,0 +1,79 @@
+{
+	"name": "tianocore-edk2",
+	"displayName": "edk2-vscode",
+	"description": "TianoCore EDK2 VS Code Extension",
+	"repository": "https://github.com/matthewfcarlson/edk2-vscode/",
+	"version": "0.0.1",
+	"publisher": "Microsoft",
+	"engines": {
+		"vscode": "^1.49.0"
+	},
+	"categories": [
+		"Other"
+	],
+	"extensionDependencies": [
+		"ms-vscode.cpptools",
+		"ms-python.python"
+	],
+	"activationEvents": [
+		"onCommand:tianocore-edk2.helloWorld",
+		"onLanguage:inf",
+		"onLanguage:dsc",
+		"onLanguage:dec"
+	],
+	"main": "./out/extension.js",
+	"contributes": {
+		"commands": [
+			{
+				"command": "tianocore-edk2.helloWorld",
+				"title": "Hello World"
+			}
+		],
+		"languages": [
+			{
+				"id": "edk2-dsc",
+				"aliases": [
+					"UEFI Project Descriptor File",
+					"DSC",
+					"dsc"
+				],
+				"extensions": [
+					".dsc",
+					".DSC"
+				],
+				"configuration": "./langs/dsc-language-conf.json"
+			}
+		],
+		"grammars": [
+            {
+                "language": "edk2-dsc",
+                "scopeName": "source.dsc",
+                "path": "./langs/dsc.tmLanguage.json"
+			}
+		]
+	},
+	"scripts": {
+		"vscode:prepublish": "npm run compile",
+		"compile": "tsc -p ./",
+		"lint": "eslint src --ext ts",
+		"watch": "tsc -watch -p ./",
+		"pretest": "npm run compile && npm run lint",
+		"test": "node ./out/test/runTest.js",
+		"package": "vsce package -o release/test.vsix",
+		"install-ext": "npm run package && code --install-extension release/test.vsix"
+	},
+	"devDependencies": {
+		"@types/vscode": "^1.49.0",
+		"@types/glob": "^7.1.3",
+		"@types/mocha": "^8.0.0",
+		"@types/node": "^12.11.7",
+		"eslint": "^7.9.0",
+		"@typescript-eslint/eslint-plugin": "^4.1.1",
+		"@typescript-eslint/parser": "^4.1.1",
+		"glob": "^7.1.6",
+		"mocha": "^8.1.3",
+		"typescript": "^4.0.2",
+		"vscode-test": "^1.4.0",
+		"vsce": "1.80.0"
+	}
+}
